@@ -54,33 +54,31 @@ export default function Main() {
 
   return (
     <Container>
-      {products === null ? (
-        <Text>Hey</Text>
+      {!products ? (
+        <ActivityIndicator color="#FFF" size={32} />
       ) : (
         <ProductList
           data={products}
           keyExtractor={product => String(product.id)}
-          renderItem={({ item: product, index }) => (
-            <>
-              <Product>
-                <ProductImage source={{ uri: product.image }} />
-                <ProductTitle>{product.title}</ProductTitle>
-                <ProductPrice>{product.priceFormatted}</ProductPrice>
-                <AddButton onPress={() => !product.loading && handleAddProduct(product.id)}>
-                  <ProductAmount>
-                    {product.loading ? (
-                      <ActivityIndicator color="#FFF" size={20} />
-                    ) : (
-                      <>
-                        <Icon name="add-shopping-cart" color="#FFF" size={20} />
-                        <ProductAmountText>{amount[product.id] || 0}</ProductAmountText>
-                      </>
-                    )}
-                  </ProductAmount>
-                  <AddButtonText>ADD TO CART</AddButtonText>
-                </AddButton>
-              </Product>
-            </>
+          renderItem={({ item: product }) => (
+            <Product>
+              <ProductImage source={{ uri: product.image }} />
+              <ProductTitle>{product.title}</ProductTitle>
+              <ProductPrice>{product.priceFormatted}</ProductPrice>
+              <AddButton onPress={() => handleAddProduct(product.id)}>
+                <ProductAmount>
+                  {product.loading ? (
+                    <ActivityIndicator color="#FFF" size={20} />
+                  ) : (
+                    <>
+                      <Icon name="add-shopping-cart" color="#FFF" size={20} />
+                      <ProductAmountText>{amount[product.id] || 0}</ProductAmountText>
+                    </>
+                  )}
+                </ProductAmount>
+                <AddButtonText>ADD TO CART</AddButtonText>
+              </AddButton>
+            </Product>
           )}
         />
       )}
