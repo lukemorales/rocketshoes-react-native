@@ -4,7 +4,7 @@
     "es6": true,
     "jest": true
   },
-  "extends": ["airbnb", "plugin:react-native/all"],
+  "extends": ["airbnb", "plugin:react-native/all", "prettier", "prettier/react"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly",
@@ -17,19 +17,19 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "react-native", "jsx-a11y", "import"],
+  "plugins": ["react", "react-native", "jsx-a11y", "import", "prettier", "react-hooks"],
   "rules": {
-    "react/jsx-filename-extension": [
-      "error",
-      { "extensions": [".js", ".jsx"] }
-    ],
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "import/prefer-default-export": "off",
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "react/jsx-one-expression-per-line": "off",
     "react-native/no-color-literals": "off",
     "react-native/sort-styles": "off",
     "global-require": "off",
-    "react-native/no-raw-text": "off"
+    "react-native/no-raw-text": "off",
+    "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   },
   "settings": {
     "import/resolver": {
