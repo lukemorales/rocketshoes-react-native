@@ -4,10 +4,22 @@ import api from '~/services/api';
 import * as CartActions from '~/store/modules/cart/actions';
 import * as ProductActions from '~/store/modules/products/actions';
 import { formatPrice } from '~/utils/format';
-import { View, Text } from 'react-native';
-import { Container } from './Main_Styles';
+import { ActivityIndicator, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {
+  Container,
+  ProductList,
+  Product,
+  ProductImage,
+  ProductTitle,
+  ProductPrice,
+  AddButton,
+  ProductAmount,
+  ProductAmountText,
+  AddButtonText,
+} from './Main_Styles';
 
-export default function Main({ navigation }) {
+export default function Main() {
   const products = useSelector(state => state.products);
 
   const amount = useSelector(state =>
@@ -42,8 +54,38 @@ export default function Main({ navigation }) {
 
   return (
     <Container>
-      {products === null ? <Text>Hey</Text> : <Text>Oops</Text>
-      // (
+      {products === null ? (
+        <Text>Hey</Text>
+      ) : (
+        <ProductList
+          data={products}
+          keyExtractor={product => String(product.id)}
+          renderItem={({ item: product, index }) => (
+            <>
+              <Product>
+                <ProductImage source={{ uri: product.image }} />
+                <ProductTitle>{product.title}</ProductTitle>
+                <ProductPrice>{product.priceFormatted}</ProductPrice>
+                <AddButton onPress={() => !product.loading && handleAddProduct(product.id)}>
+                  <ProductAmount>
+                    {product.loading ? (
+                      <ActivityIndicator color="#FFF" size={20} />
+                    ) : (
+                      <>
+                        <Icon name="add-shopping-cart" color="#FFF" size={20} />
+                        <ProductAmountText>{amount[product.id] || 0}</ProductAmountText>
+                      </>
+                    )}
+                  </ProductAmount>
+                  <AddButtonText>ADD TO CART</AddButtonText>
+                </AddButton>
+              </Product>
+            </>
+          )}
+        />
+      )}
+
+      {/* // (
       //   products.map(product => (
       //     <li key={product.id}>
       //       <figure>
@@ -69,8 +111,7 @@ export default function Main({ navigation }) {
       //       </div>
       //     </li>
       //   ))
-      // )}
-      }
+      // ) */}
     </Container>
   );
 }
