@@ -64,6 +64,7 @@ export const Product = styled.View`
   flex-direction: row;
   border-bottom-width: ${({ isLast }) => (isLast ? '0' : '1px')};
   border-bottom-color: #ddd;
+  flex: 1;
 `;
 
 export const ProductImage = styled.Image`

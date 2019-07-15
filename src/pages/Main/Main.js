@@ -65,7 +65,7 @@ export default function Main() {
               <ProductImage source={{ uri: product.image }} />
               <ProductTitle>{product.title}</ProductTitle>
               <ProductPrice>{product.priceFormatted}</ProductPrice>
-              <AddButton onPress={() => handleAddProduct(product.id)}>
+              <AddButton onPress={() => !product.loading && handleAddProduct(product.id)}>
                 <ProductAmount>
                   {product.loading ? (
                     <ActivityIndicator color="#FFF" size={20} />
