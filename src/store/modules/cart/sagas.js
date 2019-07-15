@@ -1,9 +1,9 @@
 import { call, select, put, all, takeLatest } from 'redux-saga/effects';
-import api from '~/services/api';
-// import history from '~/services/history';
 import { addToCartSuccess, updateAmountSuccess } from './actions';
 import { setProductStatus } from '../products/actions';
 import { formatPrice } from '~/utils/format';
+import { Alert } from 'react-native';
+import api from '~/services/api';
 
 function* addToCart({ id }) {
   yield put(setProductStatus(id, true));
@@ -19,7 +19,7 @@ function* addToCart({ id }) {
 
   try {
     if (amount > stockAmount) {
-      // toast.error('Requested Amount is Out of Stock');
+      Alert.alert('Out of Stock', 'Sorry, but the amount requested is not available in stock.');
       return;
     }
 
@@ -31,7 +31,6 @@ function* addToCart({ id }) {
       const data = { ...response.data, amount: 1, priceFormatted: formatPrice(response.data.price) };
 
       yield put(addToCartSuccess(data));
-      // history.push('/cart');
     }
   } finally {
     yield put(setProductStatus(id, false));
@@ -47,7 +46,7 @@ function* updateAmount({ id, amount }) {
   const stockAmount = stock.data.amount;
 
   if (amount > stockAmount) {
-    // toast.error('Product amount not available in stock');
+    Alert.alert('Out of Stock', 'Sorry but the amount requested is not available in stock.');
     return;
   }
 
