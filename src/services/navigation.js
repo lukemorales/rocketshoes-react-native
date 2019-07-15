@@ -19,3 +19,5 @@ export default {
   navigate,
   setNavigator,
 };
+
+// credits: https://github.com/luizbatanero
