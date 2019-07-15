@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import api from '~/services/api';
 import * as CartActions from '~/store/modules/cart/actions';
@@ -17,10 +17,15 @@ import {
   ProductAmount,
   ProductAmountText,
   AddButtonText,
+  PlaceHolderImage,
+  PlaceHolderTitle,
+  PlaceHolderPrice,
+  PlaceHolderButton,
 } from './Main_Styles';
 
 export default function Main() {
   const products = useSelector(state => state.products);
+  const [visible, setVisible] = useState(false);
 
   const amount = useSelector(state =>
     state.cart.reduce((sumAmount, product) => {
@@ -48,6 +53,11 @@ export default function Main() {
     loadProducts();
   }, [dispatch]);
 
+  products &&
+    setTimeout(() => {
+      setVisible(true);
+    }, 1000);
+
   function handleAddProduct(id) {
     dispatch(CartActions.addToCartRequest(id));
   }
@@ -55,7 +65,18 @@ export default function Main() {
   return (
     <Container>
       {!products ? (
-        <ActivityIndicator color="#FFF" size={32} />
+        <ProductList
+          data={[...Array(3).keys()]}
+          keyExtractor={index => String(index)}
+          renderItem={() => (
+            <Product>
+              <PlaceHolderImage autoRun visible={visible} />
+              <PlaceHolderTitle autoRun visible={visible} />
+              <PlaceHolderPrice autoRun visible={visible} />
+              <PlaceHolderButton autoRun visible={visible} />
+            </Product>
+          )}
+        />
       ) : (
         <ProductList
           data={products}

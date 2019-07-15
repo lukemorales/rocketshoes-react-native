@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
+import Shimmer from 'react-native-shimmer-placeholder';
 
 export const Container = styled.View`
   justify-content: center;
@@ -11,6 +12,7 @@ export const ProductList = styled.FlatList.attrs({
   contentContainerStyle: { paddingBottom: 20 },
 })`
   padding: 20px;
+  width: 100%;
 `;
 
 export const Product = styled.View`
@@ -19,6 +21,7 @@ export const Product = styled.View`
   margin-bottom: 20px;
   border-radius: 4px;
   elevation: 2;
+  flex-grow: 1;
 `;
 
 export const ProductImage = styled.Image`
@@ -27,14 +30,34 @@ export const ProductImage = styled.Image`
   align-self: center;
 `;
 
+export const PlaceHolderImage = styled(Shimmer)`
+  height: 220px;
+  width: 220px;
+  align-self: center;
+  border-radius: 110px;
+`;
+
 export const ProductTitle = styled.Text`
   font-size: 16px;
   margin: 4px 0 2px;
 `;
 
+export const PlaceHolderTitle = styled(Shimmer)`
+  margin: 34px 0 8px;
+  height: 22px;
+  width: 83%;
+  border-radius: 1px;
+`;
+
 export const ProductPrice = styled.Text`
   font-weight: bold;
   font-size: 24px;
+`;
+
+export const PlaceHolderPrice = styled(Shimmer)`
+  width: 120px;
+  height: 28px;
+  border-radius: 1px;
 `;
 
 export const AddButton = styled(RectButton)`
@@ -46,6 +69,13 @@ export const AddButton = styled(RectButton)`
   align-items: center;
   position: relative;
   height: 52px;
+`;
+
+export const PlaceHolderButton = styled(Shimmer)`
+  width: 100%;
+  height: 50px;
+  border-radius: 4px;
+  margin-top: 6px;
 `;
 
 export const ProductAmount = styled.View`
