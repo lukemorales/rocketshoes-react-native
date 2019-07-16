@@ -56,7 +56,7 @@ export default function Main() {
   products &&
     setTimeout(() => {
       setVisible(true);
-    }, 1000);
+    }, 500);
 
   function handleAddProduct(id) {
     dispatch(CartActions.addToCartRequest(id));
